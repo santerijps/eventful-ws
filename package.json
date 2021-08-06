@@ -1,6 +1,6 @@
 {
   "name": "eventful-ws",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An event-driven web socket library for JS and Node",
   "main": "index.js",
   "scripts": {
@@ -13,9 +13,14 @@
     "node",
     "react"
   ],
-  "author": "Santeri Sydänmetsä",
+  "author": "Santeri Sydänmetsä <santeri.sydanmetsa@protonmail.com>",
   "license": "ISC",
   "dependencies": {
     "ws": "^8.0.0"
+  },
+  "homepage": "https://github.com/santerijps/eventful-ws",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/santerijps/eventful-ws.git"
   }
 }
