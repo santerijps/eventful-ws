@@ -79,6 +79,7 @@ class EventfulWebSocket {
      *      path: String,
      *      query: Object,
      *      ssl: Boolean,
+     *      open: Boolean,
      * 
      * }
      * 
@@ -99,6 +100,10 @@ class EventfulWebSocket {
             ? prepareWebSocketURL(options.url, options.query, options.ssl)
             : buildWebSocketURL(options.host, options.port, options.path, options.query, options.ssl) 
 
+        if (options.open) {
+            this.open()
+        }
+
     }
 
     /**
@@ -107,24 +112,28 @@ class EventfulWebSocket {
      */
     open() {
 
+        if (typeof window === "undefined") {
+            return
+        }
+
         this.socket = new WebSocket(this.url)
 
-        this.socket.onerror = e => {
-            this.onErrorHandler && this.onErrorHandler(e)
-        }
-
-        this.socket.onopen = event => {
+        this.socket.onopen = event =>
             this.onOpenHandler && this.onOpenHandler(event)
-        }
 
-        this.socket.onclose= event => {
+        this.socket.onclose= event =>
             this.onCloseHandler && this.onCloseHandler(event)
-        }
+
+        this.socket.onerror = e =>
+            this.onErrorHandler && this.onErrorHandler(e)
 
         this.socket.onmessage = _event => {
             this.onMessageHandler && this.onMessageHandler(_event.data)
-            const { event, data } = JSON.parse(_event.data)
-            this._onMessage(event, data)
+            try {
+                const { event, data } = JSON.parse(_event.data)
+                this._onMessage(event, data)
+            }
+            catch {}
         }
 
         return this
