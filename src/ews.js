@@ -93,17 +93,18 @@ class EventfulWebSocket {
 
         this.events = {}
         this.socket = null
-
-        options = options || {}
-
-        this.url = options.url
-            ? prepareWebSocketURL(options.url, options.query, options.ssl)
-            : buildWebSocketURL(options.host, options.port, options.path, options.query, options.ssl) 
+        this.options = options || {}
 
         if (options.open) {
             this.open()
         }
 
+    }
+
+    get url() {
+        return this.options.url
+            ? prepareWebSocketURL(options.url, options.query, options.ssl)
+            : buildWebSocketURL(options.host, options.port, options.path, options.query, options.ssl) 
     }
 
     /**
