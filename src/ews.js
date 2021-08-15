@@ -102,6 +102,7 @@ class EventfulWebSocket {
     }
 
     get url() {
+        const options = this.options
         return this.options.url
             ? prepareWebSocketURL(options.url, options.query, options.ssl)
             : buildWebSocketURL(options.host, options.port, options.path, options.query, options.ssl) 
